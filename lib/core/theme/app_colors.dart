@@ -6,7 +6,7 @@ abstract class AppColors {
   static const Color primaryBlueDark = Color(0xFF3B82F6);
   static const Color secondaryGold = Color(0xFFD97706); // Warm Amber/Gold
   static const Color secondaryGoldDark = Color(0xFFF59E0B);
-  
+
   // Neutral - Light Theme
   static const Color lightBackground = Color(0xFFF8FAFC);
   static const Color lightSurface = Color(0xFFFFFFFF);

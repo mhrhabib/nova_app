@@ -30,6 +30,8 @@ class CompleteProfileEvent extends AuthEvent {
   List<Object?> get props => [fullName, email];
 }
 
+class ResetAuthEvent extends AuthEvent {}
+
 // States
 abstract class AuthState extends Equatable {
   const AuthState();
@@ -104,6 +106,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
         phoneNumber: _currentPhone.isEmpty ? '+1 (555) 019-2831' : _currentPhone,
       ));
+    });
+    on<ResetAuthEvent>((event, emit) {
+      _currentPhone = '';
+      emit(AuthInitial());
     });
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/widgets/loading_shimmer.dart';
+import '../../../../core/widgets/ios_back_button.dart';
 import '../../../../core/routing/route_names.dart';
 import '../bloc/notifications_bloc.dart';
 
@@ -27,6 +28,10 @@ class _NotificationsScreenContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notifications'),
+        leading: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: IosBackButton(size: 38),
+        ),
       ),
       body: BlocBuilder<NotificationsBloc, NotificationsState>(
         builder: (context, state) {

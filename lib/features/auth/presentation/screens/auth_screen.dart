@@ -5,6 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/secondary_button.dart';
+import '../../../../core/widgets/ios_back_button.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/routing/route_names.dart';
 import '../bloc/auth_bloc.dart';
@@ -163,9 +164,20 @@ class _AuthScreenState extends State<AuthScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Enter Code',
-          style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+        Row(
+          children: [
+            IosBackButton(
+              size: 36,
+              onPressed: () {
+                context.read<AuthBloc>().add(ResetAuthEvent());
+              },
+            ),
+            const SizedBox(width: 12),
+            Text(
+              'Enter Code',
+              style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
         const SizedBox(height: 8),
         Text(
@@ -196,9 +208,20 @@ class _AuthScreenState extends State<AuthScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Complete Profile',
-          style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+        Row(
+          children: [
+            IosBackButton(
+              size: 36,
+              onPressed: () {
+                context.read<AuthBloc>().add(ResetAuthEvent());
+              },
+            ),
+            const SizedBox(width: 12),
+            Text(
+              'Complete Profile',
+              style: theme.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
         const SizedBox(height: 8),
         Text(

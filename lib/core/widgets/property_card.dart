@@ -63,7 +63,9 @@ class PropertyCard extends StatelessWidget {
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Container(
                           color: theme.colorScheme.surfaceContainerHighest,
-                          child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                          child: const Center(
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
                         ),
                         errorWidget: (context, url, error) => Container(
                           color: theme.colorScheme.surfaceContainerHighest,
@@ -73,7 +75,10 @@ class PropertyCard extends StatelessWidget {
                       Positioned(
                         top: 8,
                         left: 8,
-                        child: StatusBadge(text: tag, type: StatusBadgeType.info),
+                        child: StatusBadge(
+                          text: tag,
+                          type: StatusBadgeType.info,
+                        ),
                       ),
                     ],
                   ),
@@ -97,7 +102,9 @@ class PropertyCard extends StatelessWidget {
                           IconButton(
                             icon: Icon(
                               isSaved ? Icons.bookmark : Icons.bookmark_border,
-                              color: isSaved ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
+                              color: isSaved
+                                  ? theme.colorScheme.primary
+                                  : theme.colorScheme.onSurfaceVariant,
                               size: 22,
                             ),
                             onPressed: onFavoriteTap,
@@ -118,7 +125,11 @@ class PropertyCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          Icon(Icons.location_on_outlined, size: 14, color: theme.colorScheme.onSurfaceVariant),
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 14,
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
@@ -131,14 +142,28 @@ class PropertyCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          _buildFeatureSpec(context, Icons.bed_outlined, '$bedrooms Beds'),
-                          const SizedBox(width: 12),
-                          _buildFeatureSpec(context, Icons.bathtub_outlined, '$bathrooms Baths'),
-                          const SizedBox(width: 12),
-                          _buildFeatureSpec(context, Icons.square_foot_outlined, '${areaSqft.toInt()} sqft'),
-                        ],
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            _buildFeatureSpec(
+                              context,
+                              Icons.bed_outlined,
+                              '$bedrooms Beds',
+                            ),
+                            const SizedBox(width: 12),
+                            _buildFeatureSpec(
+                              context,
+                              Icons.bathtub_outlined,
+                              '$bathrooms Baths',
+                            ),
+                            const SizedBox(width: 12),
+                            _buildFeatureSpec(
+                              context,
+                              Icons.square_foot_outlined,
+                              '${areaSqft.toInt()} sqft',
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -162,7 +187,9 @@ class PropertyCard extends StatelessWidget {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: CachedNetworkImage(
@@ -170,7 +197,9 @@ class PropertyCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Container(
                         color: theme.colorScheme.surfaceContainerHighest,
-                        child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                        child: const Center(
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
                       ),
                       errorWidget: (context, url, error) => Container(
                         color: theme.colorScheme.surfaceContainerHighest,
@@ -188,12 +217,16 @@ class PropertyCard extends StatelessWidget {
                   top: 10,
                   right: 10,
                   child: CircleAvatar(
-                    backgroundColor: theme.colorScheme.surface.withValues(alpha: 0.85),
+                    backgroundColor: theme.colorScheme.surface.withValues(
+                      alpha: 0.85,
+                    ),
                     radius: 18,
                     child: IconButton(
                       icon: Icon(
                         isSaved ? Icons.bookmark : Icons.bookmark_border,
-                        color: isSaved ? theme.colorScheme.primary : theme.colorScheme.onSurface,
+                        color: isSaved
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.onSurface,
                         size: 18,
                       ),
                       onPressed: onFavoriteTap,
@@ -230,7 +263,11 @@ class PropertyCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          Icon(Icons.location_on_outlined, size: 14, color: theme.colorScheme.onSurfaceVariant),
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 14,
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
                           const SizedBox(width: 4),
                           Expanded(
                             child: Text(
@@ -243,7 +280,10 @@ class PropertyCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Divider(height: 1, color: theme.colorScheme.outline.withValues(alpha: 0.5)),
+                      Divider(
+                        height: 1,
+                        color: theme.colorScheme.outline.withValues(alpha: 0.5),
+                      ),
                       const SizedBox(height: 8),
                       FittedBox(
                         fit: BoxFit.scaleDown,
@@ -251,11 +291,23 @@ class PropertyCard extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _buildFeatureSpec(context, Icons.bed_outlined, '$bedrooms Beds'),
+                            _buildFeatureSpec(
+                              context,
+                              Icons.bed_outlined,
+                              '$bedrooms Beds',
+                            ),
                             const SizedBox(width: 8),
-                            _buildFeatureSpec(context, Icons.bathtub_outlined, '$bathrooms Baths'),
+                            _buildFeatureSpec(
+                              context,
+                              Icons.bathtub_outlined,
+                              '$bathrooms Baths',
+                            ),
                             const SizedBox(width: 8),
-                            _buildFeatureSpec(context, Icons.square_foot_outlined, '${areaSqft.toInt()} sqft'),
+                            _buildFeatureSpec(
+                              context,
+                              Icons.square_foot_outlined,
+                              '${areaSqft.toInt()} sqft',
+                            ),
                           ],
                         ),
                       ),
@@ -277,10 +329,7 @@ class PropertyCard extends StatelessWidget {
       children: [
         Icon(icon, size: 14, color: theme.colorScheme.onSurfaceVariant),
         const SizedBox(width: 4),
-        Text(
-          label,
-          style: theme.textTheme.bodySmall?.copyWith(fontSize: 11),
-        ),
+        Text(label, style: theme.textTheme.bodySmall?.copyWith(fontSize: 11)),
       ],
     );
   }
