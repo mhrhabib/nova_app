@@ -54,13 +54,13 @@ class _NotificationsScreenContent extends StatelessWidget {
                 final item = state.items[index];
                 return Card(
                   margin: const EdgeInsets.only(bottom: 12),
-                  color: item.isRead ? theme.colorScheme.surface : theme.colorScheme.primary.withOpacity(0.05),
+                  color: item.isRead ? theme.colorScheme.surface : theme.colorScheme.primary.withValues(alpha: 0.05),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     leading: CircleAvatar(
                       backgroundColor: item.isRead
                           ? theme.colorScheme.surfaceContainerHighest
-                          : theme.colorScheme.primary.withOpacity(0.15),
+                          : theme.colorScheme.primary.withValues(alpha: 0.15),
                       child: Icon(
                         Icons.notifications_active_outlined,
                         color: item.isRead ? theme.colorScheme.onSurfaceVariant : theme.colorScheme.primary,

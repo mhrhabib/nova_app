@@ -319,7 +319,7 @@ class _PropertyDetailScreenContentState
                                 ),
                                 CircleAvatar(
                                   backgroundColor: theme.colorScheme.primary
-                                      .withOpacity(0.1),
+                                      .withValues(alpha: 0.1),
                                   child: IconButton(
                                     icon: Icon(
                                       Icons.phone,

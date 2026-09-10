@@ -10,6 +10,9 @@ import '../../../../core/utils/responsive.dart';
 import '../../../../core/routing/route_names.dart';
 import '../bloc/search_bloc.dart';
 
+import '../../../../core/cubits/country_cubit.dart';
+import '../../../../core/widgets/country_selector_sheet.dart';
+
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
 
@@ -40,11 +43,31 @@ class _SearchScreenContentState extends State<_SearchScreenContent> {
     final theme = Theme.of(context);
     final isDesktop = context.isDesktop;
     final isTablet = context.isTablet;
+    final currentCountry = context.watch<CountryCubit>().state;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AI Property Search'),
+        title: GestureDetector(
+          onTap: () => CountrySelectorSheet.show(context),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(currentCountry.flag, style: const TextStyle(fontSize: 18)),
+              const SizedBox(width: 6),
+              Text(
+                '${currentCountry.shortName} Search',
+                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const Icon(Icons.keyboard_arrow_down, size: 16),
+            ],
+          ),
+        ),
         actions: [
+          IconButton(
+            tooltip: 'Switch Country',
+            icon: const Icon(Icons.public),
+            onPressed: () => CountrySelectorSheet.show(context),
+          ),
           IconButton(
             icon: Icon(_showMap ? Icons.view_list : Icons.map_outlined),
             onPressed: () {
@@ -169,7 +192,7 @@ class _SearchScreenContentState extends State<_SearchScreenContent> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.map, size: 80, color: theme.colorScheme.primary.withOpacity(0.4)),
+                Icon(Icons.map, size: 80, color: theme.colorScheme.primary.withValues(alpha: 0.4)),
                 const SizedBox(height: 12),
                 Text(
                   'Interactive Map View',
@@ -177,7 +200,7 @@ class _SearchScreenContentState extends State<_SearchScreenContent> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Showing properties within ${_radius.toInt()} km radius around Metro City Waterfront',
+                  'Showing developments within ${_radius.toInt()} km radius of ${context.watch<CountryCubit>().state.officeCity}',
                   style: theme.textTheme.bodyMedium,
                 ),
               ],

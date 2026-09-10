@@ -41,7 +41,7 @@ class _LeadMatchingScreenContent extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [theme.colorScheme.primary, theme.colorScheme.primary.withOpacity(0.8)],
+                colors: [theme.colorScheme.primary, theme.colorScheme.primary.withValues(alpha: 0.8)],
               ),
               borderRadius: BorderRadius.circular(16),
             ),

@@ -6,8 +6,10 @@ import '../../../../core/widgets/section_header.dart';
 import '../../../../core/widgets/filter_chip_group.dart';
 import '../../../../core/widgets/loading_shimmer.dart';
 import '../../../../core/widgets/error_state_view.dart';
+import '../../../../core/widgets/country_selector_sheet.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/routing/route_names.dart';
+import '../../../../core/cubits/country_cubit.dart';
 import '../bloc/home_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -37,38 +39,81 @@ class _HomeScreenContentState extends State<_HomeScreenContent> {
     final theme = Theme.of(context);
     final isDesktop = context.isDesktop;
     final isTablet = context.isTablet;
+    final currentCountry = context.watch<CountryCubit>().state;
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            CircleAvatar(
-              radius: 18,
-              backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
-              child: Icon(Icons.location_on, size: 20, color: theme.colorScheme.primary),
-            ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Location',
-                  style: theme.textTheme.labelSmall,
+        title: GestureDetector(
+          onTap: () => CountrySelectorSheet.show(context),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      'Metro City Waterfront',
-                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const Icon(Icons.keyboard_arrow_down, size: 18),
-                  ],
+                child: Text(
+                  currentCountry.flag,
+                  style: const TextStyle(fontSize: 20),
                 ),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Operating Hub',
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.primary.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          currentCountry.currencyCode,
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        currentCountry.name,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 2),
+                      const Icon(Icons.keyboard_arrow_down, size: 18),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         actions: [
+          IconButton(
+            tooltip: 'Switch Country',
+            icon: const Icon(Icons.public),
+            onPressed: () => CountrySelectorSheet.show(context),
+          ),
           IconButton(
             icon: const Icon(Icons.notifications_none),
             onPressed: () => context.go(RouteNames.notifications),
@@ -93,7 +138,9 @@ class _HomeScreenContentState extends State<_HomeScreenContent> {
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: theme.colorScheme.outline.withOpacity(0.4)),
+                    border: Border.all(
+                      color: theme.colorScheme.outline.withValues(alpha: 0.4),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -101,9 +148,9 @@ class _HomeScreenContentState extends State<_HomeScreenContent> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          'Search city, neighborhood, or address...',
+                          'Search ${currentCountry.shortName} developments, penthouses...',
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant.withOpacity(0.7),
+                            color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                           ),
                         ),
                       ),
@@ -117,6 +164,78 @@ class _HomeScreenContentState extends State<_HomeScreenContent> {
                       ),
                     ],
                   ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Regional Banner Card
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      theme.colorScheme.primary,
+                      theme.colorScheme.primary.withValues(alpha: 0.8),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: theme.colorScheme.primary.withValues(alpha: 0.25),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'NOVA GLOBAL EXPANSION',
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.8,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Explore ${currentCountry.name} Portfolio',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Direct developer pricing in ${currentCountry.currencyCode} (${currentCountry.currencySymbol}). Office: ${currentCountry.officeCity}.',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: Colors.white.withValues(alpha: 0.85),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      currentCountry.flag,
+                      style: const TextStyle(fontSize: 42),
+                    ),
+                  ],
                 ),
               ),
 
@@ -154,13 +273,21 @@ class _HomeScreenContentState extends State<_HomeScreenContent> {
                   }
 
                   if (state is HomeLoaded) {
+                    // Filter or prioritize properties matching the current country
+                    final countryProperties = state.featuredProperties
+                        .where((p) => p.countryCode == currentCountry.code)
+                        .toList();
+                    final displayFeatured = countryProperties.isNotEmpty
+                        ? countryProperties
+                        : state.featuredProperties;
+
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Featured Section
                         SectionHeader(
-                          title: 'Featured Collection',
-                          subtitle: 'Handpicked premier properties available now',
+                          title: '${currentCountry.shortName} Premier Collection',
+                          subtitle: 'Handpicked developments in ${currentCountry.name}',
                           actionText: 'View All',
                           onActionTap: () => context.go(RouteNames.properties),
                         ),
@@ -168,9 +295,9 @@ class _HomeScreenContentState extends State<_HomeScreenContent> {
                           height: 260,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: state.featuredProperties.length,
+                            itemCount: displayFeatured.length,
                             itemBuilder: (context, index) {
-                              final item = state.featuredProperties[index];
+                              final item = displayFeatured[index];
                               return Container(
                                 width: isDesktop ? 380 : 300,
                                 margin: const EdgeInsets.only(right: 16),
@@ -210,8 +337,8 @@ class _HomeScreenContentState extends State<_HomeScreenContent> {
 
                         // Recommended Grid / List
                         SectionHeader(
-                          title: 'Recommended For You',
-                          subtitle: 'Based on your recent inquiries & preferences',
+                          title: 'Global High-Yield Portfolio',
+                          subtitle: 'Multi-country prime projects (UAE, BD, UK, USA)',
                         ),
 
                         GridView.builder(

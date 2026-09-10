@@ -121,7 +121,7 @@ class _DashboardScreenContent extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 18,
-              backgroundColor: color.withOpacity(0.15),
+              backgroundColor: color.withValues(alpha: 0.15),
               child: Icon(icon, size: 20, color: color),
             ),
             const SizedBox(height: 8),

@@ -87,7 +87,7 @@ class _CommunicationScreenContent extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 14),
-                              Divider(height: 1, color: theme.colorScheme.outline.withOpacity(0.5)),
+                              Divider(height: 1, color: theme.colorScheme.outline.withValues(alpha: 0.5)),
                               const SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
